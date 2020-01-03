@@ -56,3 +56,7 @@ div.error {
     color: red;
     font-style: italic;
 }
+
+#example th {
+    text-align: left;
+}

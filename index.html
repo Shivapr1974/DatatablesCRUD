@@ -1,24 +1,100 @@
-<script src="JS/jquery-1.12.3.js"></script>
-<script src="JS/jquery.dataTables.min.js"></script>
-<script src="JS/global.js"></script>
-<script src="JS/csv.js"></script>
-<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
-<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
+<html>
+	<head>
+		<script src="JS/jquery-1.12.3.js"></script>
+		<script src="JS/jquery.dataTables.min.js"></script>
+		<script src="JS/global.js"></script>
+		<script src="JS/csv.js"></script>
+		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
+		<script>
+				var table = undefined;
+				var dataSet = [
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Doris Wilder", "Sales Assistant", "Sydney", "3023", "2010/09/20", "$85,600" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Michelle House", "Integration Specialist", "Sydney", "2769", "2011/06/02", "$95,400" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675", "<img class=imgdetail  src='IMAGES/delete.jpg' >" ]
+				];
+				$(document).ready(function() {
+					setData(dataSet);
+				} );
+				function setData(dataSetNew){
+					table = $('#example').DataTable( {
+									data: dataSetNew,
+									columns: [
+										{ title: "Edit" },
+										{ title: "Name" },
+										{ title: "Position" },
+										{ title: "Office" },
+										{ title: "Extn." },
+										{ title: "Start date" },
+										{ title: "Salary" },
+										{ title: "Delete" },
+									]
+								} );
+				}	
+				function reloadData(){
+					$('#example').DataTable().clear().destroy();					
+					var dataSet2 = [
+						[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+						[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],					
+					];
+					setData(dataSet2);		
+				}	
 
-
-<div id="header" class="center">
-	
-	<div id="title"> 
-	    <a href="/FraudGUI/"> 
-		<img  id="logo" src="IMAGES/logo_cricket-green.png" alt="Item added" > 
-		</a>
-		Fraud Management System 
-		<div id="name"> <%= user %> </div>
+		</script>
+	</head>
+	<body>
+		<div id="header" class="center">
 			
- 	<br>
-	</div>
-	<div style="clear: both;"></div>
-</div>
-<div id="subtitle" class="center"> 
-		<div id="subtitleText" > </div>
-</div>
+			<div id="title"> 
+				<a href="/FraudGUI/"> 
+				<img  id="logo" src="IMAGES/logo_cricket-green.png" alt="Item added" > 
+				</a>
+				User Management System 
+				<div id="name"> Sahana R Krishnan</div>
+					
+			<br>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<div id="subtitle" class="center"> 
+				<div id="subtitleText" > </div>
+		</div>
+		<br><br><br><br>
+		<table id="example" class="display" width="100%">
+		</table>
+		<button onclick="reloadData()">Relaod</button>
+	</body>	
+</html>
