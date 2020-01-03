@@ -9,7 +9,7 @@
 		<script>
 				var table = undefined;
 				var dataSet = [
-					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
+					[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
 					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
 					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
 					[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" , "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
@@ -72,6 +72,10 @@
 					];
 					setData();		
 				}	
+				function handleClick(type, row){
+						console.log(' TYPE ---------- ' + type);
+						console.log(dataSet[row]);
+				}
 
 		</script>
 	</head>
@@ -95,6 +99,6 @@
 		<br><br><br><br>
 		<table id="example" class="display" width="100%">
 		</table>
-		<button onclick="reloadData()">Relaod</button>
+		<button onclick="reloadData()">Reload</button>
 	</body>	
 </html>
