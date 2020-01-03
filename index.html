@@ -11,8 +11,9 @@
 				// [ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
 
 				var dataSet = [
-						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "5421", "A", "2011/04/25", "320" , "Charity", "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
-						[ "<img class=imgdetail  src='IMAGES/edit.png' >", "Garrett Winters", "8422", "B",  "2011/07/25", "170" ,"Medical",  "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],					
+						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "5421", "Tiger Nixon", "A", "2011/04/25", "320" , "Charity", "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
+						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 1)\">", "8422", "Gart Winter", "B", "2011/07/25", "170" , "Medical", "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 1)\">" ],		
+						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 2)\">", "8423", "Lary Winter", "B", "2011/07/25", "170" , "Medical", "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 2)\">" ],		
 					];
 
 				$(document).ready(function() {
@@ -23,8 +24,8 @@
 									data: dataSet,
 									columns: [
 										{ title: "Edit" },
-										{ title: "Name" },
 										{ title: "Number" },
+										{ title: "Name" },
 										{ title: "Grade" },
 										{ title: "Date" },
 										{ title: "Community Hours" },
@@ -35,14 +36,53 @@
 				}	
 				function reloadData(){
 					$('#example').DataTable().clear().destroy();					
-					dataSet = [
-						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "5421", "A", "2011/04/25", "320" , "Charity", "<img class=imgdetail  src='IMAGES/delete.jpg' >" ],
-					];
 					setData();		
+				}	
+				function formClear() {
+					$("#txtRow").val("");
+					$("#txtEdit").val("");					
+					$("#txtID").val("");
+					$("#txtName").val("");
+					$("#txtGrade").val("");
+					$("#txtDate").val("");
+					$("#txtCommunityHours").val("");
+					$("#txtProgramCategory").val("");
+					$("#txtDelete").val("");
+				}				
+				function saveData() {
+					var row = $("#txtRow").val();
+
+					var array = [$("#txtEdit").val(), $("#txtID").val(), $("#txtName").val(), $("#txtGrade").val(), 
+								 $("#txtDate").val(),  $("#txtCommunityHours").val(), $("#txtProgramCategory").val(), $("#txtDelete").val()];
+					if(row === undefined || row === ""){
+						row = dataSet.length;
+						dataSet.push(array);
+					}else{
+						dataSet[row] = array;								 
+					}								 
+					reloadData();
+					formClear();
 				}	
 				function handleClick(type, row){
 						console.log(' TYPE ---------- ' + type);
-						console.log(dataSet[row]);
+						const vals = dataSet[row];
+						console.log(vals);
+						if(type === 'edit'){
+							$("#txtRow").val(row);
+							$("#txtEdit").val(vals[0]);
+							$("#txtID").val(vals[1]);
+							$("#txtName").val(vals[2]);
+							$("#txtGrade").val(vals[3]);
+							$("#txtDate").val(vals[4]);
+							$("#txtCommunityHours").val(vals[5]);
+							$("#txtProgramCategory").val(vals[6]);
+							$("#txtDelete").val(vals[7]);
+						}
+						if(type === 'delete'){
+							dataSet.splice(row, 1);
+							reloadData();
+							formClear();
+						}	
 				}
 
 		</script>
@@ -65,6 +105,47 @@
 		<br><br><br><br>
 		<table id="example" class="display" width="100%">
 		</table>
-		<button onclick="reloadData()">Reload</button>
+		<!-- <button onclick="reloadData()">Reload</button> -->
+
+		
+		<form id="frmCadastre">
+			<table>
+				<input id="txtRow" name="txtRow" type="hidden">				
+				<input id="txtEdit" name="txtEdit" type="hidden">				
+				<input id="txtDelete" name="txtDelete" type="hidden">				
+				<tr>
+					<td><label for="txtID">ID:</label></td>
+					<td><input type="text" id="txtID" /></td> 
+				</tr>
+				<tr>
+					<td><label for="txtName">Name:</label></td>
+					<td><input type="text" id="txtName" /></td> 
+				</tr>
+				<tr>
+					<td><label for="txtGrade">Grade:</label></td>
+					<td><input type="text" id="txtGrade" /></td> 
+				</tr>
+				<tr>
+					<td><label for="txtDate">Date:</label></td>
+					<td><input type="text" id="txtDate" /></td> 
+				</tr>
+				<tr>
+				<tr>
+					<td><label for="txtCommunityHours">Community Hours:</label></td>
+					<td><input type="text" id="txtCommunityHours" /></td> 
+				</tr>
+				<tr>
+				<tr>
+					<td><label for="txtProgramCategory">Program Category:</label></td>
+					<td><input type="text" id="txtProgramCategory" /></td> 
+				</tr>
+				<tr>											
+					<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
+					<td><input type="button" value="Clear" id="btnClear"  onclick="formClear()"/></td> 
+				</tr>
+			</table>
+		</form>
+
+		
 	</body>	
 </html>
