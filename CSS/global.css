@@ -1,0 +1,58 @@
+div#header {
+    background-color:#036b37;
+}
+
+img#logo {
+    width: 100px;
+    height: 35px;
+    float: left;
+}
+div#title {
+    font-size: 32px;
+    font-weight: bold;
+} 
+div#subtitle {
+    font-size: 32px;
+    font-weight: bold;
+} 
+div#name {
+	color:#FFFFFF;
+    font-size:27px;
+    background-color:#036b37;
+    float: right;
+    vertical-align:bottom;
+}
+
+button#csv {
+	color:#FFFFFF;
+    font-size:27px;
+    background-color:#036b37;
+}
+
+
+body {
+    background-color: rgba(57, 128, 0, 0.35);
+}
+
+.center {
+       text-align: center;
+}
+
+img.imgdetail {
+    width: 44px;
+    height: 44px;
+}
+
+
+div#worklist_info {
+    visibility: hidden;
+}
+
+div#worklist_filter {
+    visibility: hidden;
+}
+
+div.error {
+    color: red;
+    font-style: italic;
+}
