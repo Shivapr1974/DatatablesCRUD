@@ -37,14 +37,23 @@ body {
 .center {
        text-align: center;
 }
-
+#frmCadastre{
+   padding-left: 50px;
+   padding-top: 25px;
+}
 img.imgdetail {
     width: 44px;
     height: 44px;
     cursor:pointer;
 }
-
-
+#btnSave{
+    margin-top: 25px;
+    margin-left: 50px;
+}
+#btnClear{
+    margin-top: 25px;
+    margin-left: 50px;
+}
 div#worklist_info {
     visibility: hidden;
 }

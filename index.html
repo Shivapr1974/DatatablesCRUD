@@ -99,53 +99,57 @@
 			</div>
 			<div style="clear: both;"></div>
 		</div>
-		<div id="subtitle" class="center"> 
-				<div id="subtitleText" > </div>
-		</div>
+
 		<br><br><br><br>
 		<table id="example" class="display" width="100%">
 		</table>
 		<!-- <button onclick="reloadData()">Reload</button> -->
+		<div id="subtitle" > 
+			<hr/>
+			<div id="subtitleText" > Add/Edit</div>
+			<hr/>
+		</div>
+		<div class="center"> 
+			<form id="frmCadastre">
+				<table>
+					<input id="txtRow" name="txtRow" type="hidden">				
+					<input id="txtEdit" name="txtEdit" type="hidden">				
+					<input id="txtDelete" name="txtDelete" type="hidden">				
+					<tr>
+						<td><label for="txtID">ID:</label></td>
+						<td><input type="text" id="txtID" /></td> 
+					</tr>
+					<tr>
+						<td><label for="txtName">Name:</label></td>
+						<td><input type="text" id="txtName" /></td> 
+					</tr>
+					<tr>
+						<td><label for="txtGrade">Grade:</label></td>
+						<td><input type="text" id="txtGrade" /></td> 
+					</tr>
+					<tr>
+						<td><label for="txtDate">Date:</label></td>
+						<td><input type="text" id="txtDate" /></td> 
+					</tr>
+					<tr>
+					<tr>
+						<td><label for="txtCommunityHours">Community Hours:</label></td>
+						<td><input type="text" id="txtCommunityHours" /></td> 
+					</tr>
+					<tr>
+					<tr>
+						<td><label for="txtProgramCategory">Program Category:</label></td>
+						<td><input type="text" id="txtProgramCategory" /></td> 
+					</tr>
 
-		
-		<form id="frmCadastre">
-			<table>
-				<input id="txtRow" name="txtRow" type="hidden">				
-				<input id="txtEdit" name="txtEdit" type="hidden">				
-				<input id="txtDelete" name="txtDelete" type="hidden">				
-				<tr>
-					<td><label for="txtID">ID:</label></td>
-					<td><input type="text" id="txtID" /></td> 
-				</tr>
-				<tr>
-					<td><label for="txtName">Name:</label></td>
-					<td><input type="text" id="txtName" /></td> 
-				</tr>
-				<tr>
-					<td><label for="txtGrade">Grade:</label></td>
-					<td><input type="text" id="txtGrade" /></td> 
-				</tr>
-				<tr>
-					<td><label for="txtDate">Date:</label></td>
-					<td><input type="text" id="txtDate" /></td> 
-				</tr>
-				<tr>
-				<tr>
-					<td><label for="txtCommunityHours">Community Hours:</label></td>
-					<td><input type="text" id="txtCommunityHours" /></td> 
-				</tr>
-				<tr>
-				<tr>
-					<td><label for="txtProgramCategory">Program Category:</label></td>
-					<td><input type="text" id="txtProgramCategory" /></td> 
-				</tr>
-				<tr>											
-					<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
-					<td><input type="button" value="Clear" id="btnClear"  onclick="formClear()"/></td> 
-				</tr>
-			</table>
-		</form>
-
+					<tr>											
+						<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
+						<td><input type="button" value="Clear" id="btnClear"  onclick="formClear()"/></td> 
+					</tr>
+				</table>
+			</form>
+		</div> 
+		<hr/>
 		
 	</body>	
 </html>
