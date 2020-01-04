@@ -11,9 +11,9 @@
 				// [ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
 
 				var dataSet = [
-						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "5421", "Tiger Nixon", "A", "2011/04/25", "320" , "Charity", "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
-						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 1)\">", "8422", "Gart Winter", "B", "2011/07/25", "170" , "Medical", "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 1)\">" ],		
-						[ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 2)\">", "8423", "Lary Winter", "B", "2011/07/25", "170" , "Medical", "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 2)\">" ],		
+						[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 0)\">", "5421", "Tiger Nixon", "A",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">" ],
+						[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 1)\">", "8422", "Gart Winter", "B",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 1)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 1)\">" ],		
+						[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 2)\">", "8423", "Lary Winter", "B",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 2)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 2)\">" ],		
 					];
 
 				$(document).ready(function() {
@@ -23,14 +23,15 @@
 					table = $('#example').DataTable( {
 									data: dataSet,
 									columns: [
-										{ title: "Edit" },
+										{ title: "Details" },
 										{ title: "Number" },
 										{ title: "Name" },
 										{ title: "Grade" },
-										{ title: "Date" },
-										{ title: "Community Hours" },
-										{ title: "Program Category" },
+										// { title: "Date" },
+										// { title: "Community Hours" },
+										// { title: "Program Category" },
 										{ title: "Delete" },
+										{ title: "Edit" },
 									]
 								} );
 				}	
@@ -40,14 +41,15 @@
 				}	
 				function formClear() {
 					$("#txtRow").val("");
-					$("#txtEdit").val("");					
+					$("#txtDetails").val("");
 					$("#txtID").val("");
 					$("#txtName").val("");
 					$("#txtGrade").val("");
-					$("#txtDate").val("");
-					$("#txtCommunityHours").val("");
-					$("#txtProgramCategory").val("");
+					// $("#txtDate").val("");
+					// $("#txtCommunityHours").val("");
+					// $("#txtProgramCategory").val("");
 					$("#txtDelete").val("");
+					$("#txtEdit").val("");					
 				}				
 				function saveData() {
 					var row = $("#txtRow").val();
@@ -69,14 +71,15 @@
 						console.log(vals);
 						if(type === 'edit'){
 							$("#txtRow").val(row);
-							$("#txtEdit").val(vals[0]);
+							$("#txtDetails").val(vals[0]);
 							$("#txtID").val(vals[1]);
 							$("#txtName").val(vals[2]);
 							$("#txtGrade").val(vals[3]);
-							$("#txtDate").val(vals[4]);
-							$("#txtCommunityHours").val(vals[5]);
-							$("#txtProgramCategory").val(vals[6]);
-							$("#txtDelete").val(vals[7]);
+							// $("#txtDate").val(vals[4]);
+							// $("#txtCommunityHours").val(vals[5]);
+							// $("#txtProgramCategory").val(vals[6]);
+							$("#txtDelete").val(vals[4]);
+							$("#txtEdit").val(vals[5]);
 						}
 						if(type === 'delete'){
 							dataSet.splice(row, 1);
@@ -113,6 +116,7 @@
 			<form id="frmCadastre">
 				<table>
 					<input id="txtRow" name="txtRow" type="hidden">				
+					<input id="txtDetails" name="txtDetails" type="hidden">				
 					<input id="txtEdit" name="txtEdit" type="hidden">				
 					<input id="txtDelete" name="txtDelete" type="hidden">				
 					<tr>
@@ -127,7 +131,7 @@
 						<td><label for="txtGrade">Grade:</label></td>
 						<td><input type="text" id="txtGrade" /></td> 
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td><label for="txtDate">Date:</label></td>
 						<td><input type="text" id="txtDate" /></td> 
 					</tr>
@@ -140,7 +144,7 @@
 					<tr>
 						<td><label for="txtProgramCategory">Program Category:</label></td>
 						<td><input type="text" id="txtProgramCategory" /></td> 
-					</tr>
+					</tr> -->
 
 					<tr>											
 						<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
