@@ -10,6 +10,21 @@
 				var url = new URL( window.location.href);
 				var id = url.searchParams.get("id");
 				var name = url.searchParams.get("name");
+				var communityServObject = {
+					"5421": [
+								[12, "Medical", "12/12/2019"],
+								[2, "Animal", "11/12/2019"],
+							],
+					"8422": [
+								[12, "Medical", "12/12/2019"],
+								[2,  "Church", "11/12/2019"],
+							],
+					"8423": [
+								[12, "Church", "12/12/2019"],
+								[2,  "Animal", "11/12/2019"],
+							],
+				};
+				var origDataSet = communityServObject[id]; ;
 
 				$(document).ready(function() {
 					$("#id").text(id);
