@@ -24,12 +24,100 @@
 								[2,  "Animal", "11/12/2019"],
 							],
 				};
-				var origDataSet = communityServObject[id]; ;
+				var origDataSet = communityServObject[id]; 
+				var dataSet = [];
+				resetDataSet();
+				function resetDataSet(){
+					var arrayDataset = []
+					for (var i = 0; i < origDataSet.length; i++) {
+						var icons = setIcons(i);
+						var detail = icons.detail;
+						var edit =   icons.edit;
+						var del =    icons.del;
+						console.log(origDataSet[i]);
+						var arr = [...origDataSet[i], del, edit];
+						arrayDataset.push(arr);
+					}
+				 	dataSet = arrayDataset;
+				}
+				function setData(){
+					table = $('#example').DataTable( {
+									data: dataSet,
+									columns: [
+										{ title: "Hours" },
+										{ title: "Type" },
+										{ title: "Date" },
+										{ title: "Delete" },
+										{ title: "Edit" },
+									]
+								} );
+				}					
 
 				$(document).ready(function() {
 					$("#id").text(id);
 					$("#name").text(name);
+					setData();
 				} );
+				function reloadData(){
+					$('#example').DataTable().clear().destroy();					
+					setData();		
+				}	
+				function formClear() {
+					$("#txtRow").val("");
+					$("#txtHours").val("");
+					$("#txtDate").val("");
+					$("#txtType").val("");
+					$("#txtDelete").val("");
+					$("#txtEdit").val("");					
+				}				
+				function saveData() {
+					var row = $("#txtRow").val();
+					var add = false;
+					if(row === undefined || row === ""){
+						row = dataSet.length;
+						add = true;
+					}					
+					var icons = setIcons(row);
+					var detail = icons.detail;
+					var edit =   icons.edit;
+					var del =    icons.del;				
+					var array = [$("#txtHours").val(), $("#txtType").val(), $("#txtDate").val() ];
+
+					if(add){
+						origDataSet.push(array);
+					}else{
+						origDataSet[row] = array;								 
+					}	
+					resetDataSet();							 
+					reloadData();
+					formClear();
+				}	
+				function handleClick(type, row){
+						console.log(' TYPE ---------- ' + type);
+						const vals = dataSet[row];
+						console.log(vals);
+						if(type === 'edit'){
+							$("#txtRow").val(row);
+							$("#txtHours").val(vals[0]);
+							$("#txtType").val(vals[1]);							
+							$("#txtDate").val(vals[2]);
+							$("#txtDelete").val(vals[3]);
+							$("#txtEdit").val(vals[4]);
+						}
+						if(type === 'delete'){
+							origDataSet.splice(row, 1);
+							resetDataSet();	
+							reloadData();
+							formClear();
+						}	
+						if( type === 'details'){
+							var id = vals[1];
+							var name = vals[2];
+							url = "detail.html?id="+id+"&name="+encodeURIComponent(name);
+							MyWindow=window.open(url,'Details','width=900,height=700');
+						}
+				}
+
 
 		</script>
 	</head>
@@ -49,6 +137,48 @@
 		<br><br><br><br>
 		<table id="example" class="display" width="100%">
 		</table>
-		
+
+		<div id="subtitle" > 
+			<hr/>
+			<div id="subtitleText" > Add/Edit</div>
+			<hr/>
+		</div>
+		<div class="center"> 
+			<form id="frmCadastre">
+				<table>
+					<input id="txtRow" name="txtRow" type="hidden">				
+					<input id="txtEdit" name="txtEdit" type="hidden">				
+					<input id="txtDelete" name="txtDelete" type="hidden">				
+					<tr>
+						<td><label for="txtHours">Hours:</label></td>
+						<td><input type="text" id="txtHours" /></td> 
+					</tr>
+					<tr>
+						<td><label for="txtDate">Date:</label></td>
+						<td><input type="date" id="txtDate" style="width:160px;"/></td> 
+					</tr>
+					<tr>
+						<td><label for="txtType">Type:</label></td>
+						<td>
+							<!-- <input type="text" id="txtGrade" /> -->
+							<select id="txtType" style="width:160px;">
+								<option value="">Select Charity Type</option>
+								<option value="Medical">Medical</option>
+								<option value="Animal">Animal</option>
+								<option value="School">School</option>
+							  </select>							
+						</td> 
+					</tr>
+					<tr>											
+						<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
+						<td><input type="button" value="Clear" id="btnClear"  onclick="formClear()"/></td> 
+					</tr>
+				</table>
+			</form>
+		</div> 
+		<hr/>		
+
+
+
 	</body>	
 </html>

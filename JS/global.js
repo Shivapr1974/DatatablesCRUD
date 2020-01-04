@@ -1,4 +1,17 @@
-        function setCookie(key, value) {
+		function setIcons(i){
+			detail = "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', " + i +")\">";
+			edit =   "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', " + i +")\">";
+			del =    "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', " + i +")\">";
+			return {
+				"detail": detail,
+				"edit": edit,
+				"del": del,
+
+			}
+		}
+
+		
+		function setCookie(key, value) {
             var expires = new Date();
             expires.setTime(expires.getTime() + (10*365 * 24 * 60 * 60 * 1000));
             document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
@@ -17,7 +30,8 @@
         	 return string;
         	 
        	}        
-        
+		
+		
         function openWorkList( id) {
             window.open("/FraudGUI/detail.jsp?TABLE=worklist&ID="+ id, "", "width=1200,height=600");
         }   
