@@ -10,15 +10,45 @@
 				var table = undefined;
 				// [ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
 
-				var dataSet = [
-						[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 0)\">", "5421", "Tiger Nixon", "A",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">" ],
-						[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 1)\">", "8422", "Gart Winter", "B",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 1)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 1)\">" ],		
-						[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 2)\">", "8423", "Lary Winter", "B",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 2)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 2)\">" ],		
-					];
+				var origDataSet = [
+						[ "5421", "Tiger Nixon", "A"],
+						[ "8422", "Gart Winter", "B"],		
+						[ "8423", "Lary Winter", "B"],		
+				];
+				for (var i = 0; i < origDataSet.length; i++) {
+					var icons = setIcons(i);
+					var detail = icons.detail;
+					var edit =   icons.edit;
+					var del =    icons.del;
+					setIcons(i, detail, edit, del);
+					console.log(origDataSet[i]);
+					var arr = [detail, ...origDataSet[i], del, edit];
+					origDataSet[i] = arr;
+					console.log(origDataSet[i]);
+				}
+				var dataSet = origDataSet;
+
+				// var dataSet = [
+				// 		[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 0)\">", "5421", "Tiger Nixon", "A",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">" ],
+				// 		[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 1)\">", "8422", "Gart Winter", "B",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 1)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 1)\">" ],		
+				// 		[ "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', 2)\">", "8423", "Lary Winter", "B",  "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 2)\">", "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 2)\">" ],		
+				// 	];
 
 				$(document).ready(function() {
 					setData();
 				} );
+				function setIcons(i){
+					detail = "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', " + i +")\">";
+					edit =   "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', " + i +")\">";
+					del =    "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', " + i +")\">";
+					return {
+						"detail": detail,
+						"edit": edit,
+						"del": del,
+
+					}
+				}
+
 				function setData(){
 					table = $('#example').DataTable( {
 									data: dataSet,
@@ -53,11 +83,18 @@
 				}				
 				function saveData() {
 					var row = $("#txtRow").val();
-
-					var array = [$("#txtDetails").val(), $("#txtID").val(), $("#txtName").val(), $("#txtGrade").val(), 
-								 $("#txtDelete").val(), $("#txtEdit").val()];
+					var add = false;
 					if(row === undefined || row === ""){
 						row = dataSet.length;
+						add = true;
+					}					
+					var icons = setIcons(row);
+					var detail = icons.detail;
+					var edit =   icons.edit;
+					var del =    icons.del;				
+					var array = [detail, $("#txtID").val(), $("#txtName").val(), $("#txtGrade").val(), del, edit];
+
+					if(add){
 						dataSet.push(array);
 					}else{
 						dataSet[row] = array;								 
