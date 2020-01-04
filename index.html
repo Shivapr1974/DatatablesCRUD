@@ -54,8 +54,8 @@
 				function saveData() {
 					var row = $("#txtRow").val();
 
-					var array = [$("#txtEdit").val(), $("#txtID").val(), $("#txtName").val(), $("#txtGrade").val(), 
-								 $("#txtDate").val(),  $("#txtCommunityHours").val(), $("#txtProgramCategory").val(), $("#txtDelete").val()];
+					var array = [$("#txtDetails").val(), $("#txtID").val(), $("#txtName").val(), $("#txtGrade").val(), 
+								 $("#txtDelete").val(), $("#txtEdit").val()];
 					if(row === undefined || row === ""){
 						row = dataSet.length;
 						dataSet.push(array);
@@ -129,7 +129,17 @@
 					</tr>
 					<tr>
 						<td><label for="txtGrade">Grade:</label></td>
-						<td><input type="text" id="txtGrade" /></td> 
+						<td>
+							<!-- <input type="text" id="txtGrade" /> -->
+							<select id="txtGrade" style="width:160px;">
+								<option value="">Select Grade</option>
+								<option value="A">A</option>
+								<option value="B">B</option>
+								<option value="C">C</option>
+								<option value="D">D</option>
+								<option value="F">F</option>
+							  </select>							
+						</td> 
 					</tr>
 					<!-- <tr>
 						<td><label for="txtDate">Date:</label></td>
