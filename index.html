@@ -28,7 +28,7 @@
 						var edit =   icons.edit;
 						var del =    icons.del;
 						console.log(origDataSet[i]);
-						var arr = [detail, ...origDataSet[i], del, edit];
+						var arr = [...origDataSet[i], detail, del, edit];
 						arrayDataset.push(arr);
 					}
 				 	dataSet = arrayDataset;
@@ -38,13 +38,10 @@
 					table = $('#example').DataTable( {
 									data: dataSet,
 									columns: [
-										{ title: "Details" },
 										{ title: "Number" },
 										{ title: "Name" },
 										{ title: "Grade" },
-										// { title: "Date" },
-										// { title: "Community Hours" },
-										// { title: "Program Category" },
+										{ title: "Community<br>Service" },
 										{ title: "Delete" },
 										{ title: "Edit" },
 									]
@@ -60,9 +57,6 @@
 					$("#txtID").val("");
 					$("#txtName").val("");
 					$("#txtGrade").val("");
-					// $("#txtDate").val("");
-					// $("#txtCommunityHours").val("");
-					// $("#txtProgramCategory").val("");
 					$("#txtDelete").val("");
 					$("#txtEdit").val("");					
 				}				
@@ -94,13 +88,10 @@
 						console.log(vals);
 						if(type === 'edit'){
 							$("#txtRow").val(row);
-							$("#txtDetails").val(vals[0]);
-							$("#txtID").val(vals[1]);
-							$("#txtName").val(vals[2]);
-							$("#txtGrade").val(vals[3]);
-							// $("#txtDate").val(vals[4]);
-							// $("#txtCommunityHours").val(vals[5]);
-							// $("#txtProgramCategory").val(vals[6]);
+							$("#txtID").val(vals[0]);
+							$("#txtName").val(vals[1]);
+							$("#txtGrade").val(vals[2]);
+							$("#txtDetails").val(vals[3]);
 							$("#txtDelete").val(vals[4]);
 							$("#txtEdit").val(vals[5]);
 						}
@@ -111,8 +102,8 @@
 							formClear();
 						}	
 						if( type === 'details'){
-							var id = vals[1];
-							var name = vals[2];
+							var id = vals[0];
+							var name = vals[1];
 							url = "detail.html?id="+id+"&name="+encodeURIComponent(name);
 							MyWindow=window.open(url,'Details','width=900,height=700');
 						}
@@ -171,21 +162,6 @@
 							  </select>							
 						</td> 
 					</tr>
-					<!-- <tr>
-						<td><label for="txtDate">Date:</label></td>
-						<td><input type="text" id="txtDate" /></td> 
-					</tr>
-					<tr>
-					<tr>
-						<td><label for="txtCommunityHours">Community Hours:</label></td>
-						<td><input type="text" id="txtCommunityHours" /></td> 
-					</tr>
-					<tr>
-					<tr>
-						<td><label for="txtProgramCategory">Program Category:</label></td>
-						<td><input type="text" id="txtProgramCategory" /></td> 
-					</tr> -->
-
 					<tr>											
 						<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
 						<td><input type="button" value="Clear" id="btnClear"  onclick="formClear()"/></td> 
