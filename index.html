@@ -15,22 +15,24 @@
 						[ "8422", "Gart Winter", "B"],		
 						[ "8423", "Lary Winter", "B"],		
 				];
-				for (var i = 0; i < origDataSet.length; i++) {
-					var icons = setIcons(i);
-					var detail = icons.detail;
-					var edit =   icons.edit;
-					var del =    icons.del;
-					setIcons(i, detail, edit, del);
-					console.log(origDataSet[i]);
-					var arr = [detail, ...origDataSet[i], del, edit];
-					origDataSet[i] = arr;
-					console.log(origDataSet[i]);
-				}
 				var dataSet = origDataSet;
-
+				resetDataSet();
 				$(document).ready(function() {
 					setData();
 				} );
+				function resetDataSet(){
+					var arrayDataset = []
+					for (var i = 0; i < origDataSet.length; i++) {
+						var icons = setIcons(i);
+						var detail = icons.detail;
+						var edit =   icons.edit;
+						var del =    icons.del;
+						console.log(origDataSet[i]);
+						var arr = [detail, ...origDataSet[i], del, edit];
+						arrayDataset.push(arr);
+					}
+				 	dataSet = arrayDataset;
+				}
 				function setIcons(i){
 					detail = "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', " + i +")\">";
 					edit =   "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', " + i +")\">";
@@ -86,13 +88,14 @@
 					var detail = icons.detail;
 					var edit =   icons.edit;
 					var del =    icons.del;				
-					var array = [detail, $("#txtID").val(), $("#txtName").val(), $("#txtGrade").val(), del, edit];
+					var array = [$("#txtID").val(), $("#txtName").val(), $("#txtGrade").val()];
 
 					if(add){
-						dataSet.push(array);
+						origDataSet.push(array);
 					}else{
-						dataSet[row] = array;								 
-					}								 
+						origDataSet[row] = array;								 
+					}	
+					resetDataSet();							 
 					reloadData();
 					formClear();
 				}	
@@ -113,13 +116,15 @@
 							$("#txtEdit").val(vals[5]);
 						}
 						if(type === 'delete'){
-							dataSet.splice(row, 1);
+							origDataSet.splice(row, 1);
+							resetDataSet();	
 							reloadData();
 							formClear();
 						}	
 						if( type === 'details'){
 							var id = vals[1];
 							var name = vals[2];
+							window.dataSet = dataSet;
 							url = "detail.html?id="+id+"&name="+encodeURIComponent(name);
 							MyWindow=window.open(url,'Details','width=900,height=700');
 						}
