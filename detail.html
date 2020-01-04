@@ -7,9 +7,14 @@
 		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
 		<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
 		<script>
-				var origDataSet = window.opener.dataSet
-				var dataSet = origDataSet;
+				var url = new URL( window.location.href);
+				var id = url.searchParams.get("id");
+				var name = url.searchParams.get("name");
 
+				$(document).ready(function() {
+					$("#id").text(id);
+					$("#name").text(name);
+				} );
 
 		</script>
 	</head>
@@ -18,8 +23,8 @@
 			
 			<div id="title"> 
 				<img  id="logo" src="IMAGES/student.jpg" alt="Item added" > 
-				Student Management System 
-				<div id="name"> Sahana R Krishnan</div>
+				User Detail for <span id="name"></span> (ID: <span id="id"></span>)
+				<div id="name"> </div>
 					
 			<br>
 			</div>
