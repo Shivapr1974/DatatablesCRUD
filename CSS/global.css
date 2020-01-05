@@ -63,7 +63,7 @@ div#worklist_filter {
     visibility: hidden;
 }
 
-div.error {
+span.error {
     color: red;
     font-style: italic;
 }

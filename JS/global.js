@@ -9,7 +9,9 @@
 
 			}
 		}
-
+		function checkNull(str){
+			return (str === "" || str === null || str === undefined);
+		}
 		
 		function setCookie(key, value) {
             var expires = new Date();

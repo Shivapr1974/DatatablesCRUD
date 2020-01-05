@@ -60,7 +60,32 @@
 					$("#txtDelete").val("");
 					$("#txtEdit").val("");					
 				}				
+				
+				function validate(){
+					var id = $("#txtID").val();
+					var name = $("#txtName").val();
+					var grade = $("#txtGrade").val();
+					var error = false;
+					var requiredMessage="This field is required."
+					if(checkNull(id) ){
+						error = true;
+						$("#errorID").text(requiredMessage);
+					}
+					if(checkNull(name) ){
+						error = true;
+						$("#errorName").text(requiredMessage);
+					}
+					if(checkNull(grade) ){
+						error = true;
+						$("#errorGrade").text(requiredMessage);
+						
+					}			
+					return error;							
+				}
 				function saveData() {
+					if( validate()) {
+						return;
+					}
 					var row = $("#txtRow").val();
 					var add = false;
 					if(row === undefined || row === ""){
@@ -143,10 +168,16 @@
 					<tr>
 						<td><label for="txtID">ID:</label></td>
 						<td><input type="text" id="txtID" /></td> 
+						<td>
+							<span class="error" id="errorID" > </span>
+						</td> 
 					</tr>
 					<tr>
 						<td><label for="txtName">Name:</label></td>
 						<td><input type="text" id="txtName" /></td> 
+						<td>
+							<span class="error" id="errorName" > </span>
+						</td> 						
 					</tr>
 					<tr>
 						<td><label for="txtGrade">Grade:</label></td>
@@ -161,6 +192,9 @@
 								<option value="F">F</option>
 							  </select>							
 						</td> 
+						<td>
+							<span class="error" id="errorGrade" > </span>
+						</td> 							
 					</tr>
 					<tr>											
 						<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 

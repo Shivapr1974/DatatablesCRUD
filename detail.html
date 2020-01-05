@@ -70,7 +70,31 @@
 					$("#txtDelete").val("");
 					$("#txtEdit").val("");					
 				}				
+				function validate(){
+					var hours = $("#txtHours").val();
+					var type = $("#txtType").val();
+					var dateVal = $("#txtDate").val();
+					var error = false;
+					var requiredMessage="This field is required."
+					if(checkNull(hours) ){
+						error = true;
+						$("#errorHours").text(requiredMessage);
+					}
+					if(checkNull(type) ){
+						error = true;
+						$("#errorType").text(requiredMessage);
+					}
+					if(checkNull(dateVal) ){
+						error = true;
+						$("#errorDate").text(requiredMessage);
+						
+					}			
+					return error;							
+				}				
 				function saveData() {
+					if( validate()) {
+						return;
+					}					
 					var row = $("#txtRow").val();
 					var add = false;
 					if(row === undefined || row === ""){
@@ -152,10 +176,16 @@
 					<tr>
 						<td><label for="txtHours">Hours:</label></td>
 						<td><input type="text" id="txtHours" /></td> 
+						<td>
+							<span class="error" id="errorHours" > </span>
+						</td> 							
 					</tr>
 					<tr>
 						<td><label for="txtDate">Date:</label></td>
 						<td><input type="date" id="txtDate" style="width:160px;"/></td> 
+						<td>
+							<span class="error" id="errorDate" > </span>
+						</td> 							
 					</tr>
 					<tr>
 						<td><label for="txtType">Type:</label></td>
@@ -168,6 +198,9 @@
 								<option value="School">School</option>
 							  </select>							
 						</td> 
+						<td>
+							<span class="error" id="errorType" > </span>
+						</td> 							
 					</tr>
 					<tr>											
 						<td><input type="button" value="Save" id="btnSave" onclick="saveData()"/></td> 
