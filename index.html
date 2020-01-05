@@ -10,18 +10,26 @@
 				var table = undefined;
 				// [ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
 
-				var origDataSet = [
-						[ "5421", "Tiger Nixon", "A"],
-						[ "8422", "Gart Winter", "B"],		
-						[ "8423", "Lary Winter", "B"],		
-				];
+				// var origDataSet = [
+				// 		[ "5421", "Tiger Nixon", "A"],
+				// 		[ "8422", "Gart Winter", "B"],		
+				// 		[ "8423", "Lary Winter", "B"],		
+				// ];
+				// localStorage.setItem("studentList", JSON.stringify(origDataSet));
+				var origDataSet = JSON.parse(localStorage.getItem("studentList"));
+				if( checkNull(origDataSet)){
+					origDataSet = [];
+				}					
+				var userObject = {};
 				var dataSet = origDataSet;
 				resetDataSet();
 				$(document).ready(function() {
 					setData();
 				} );
+			
 				function resetDataSet(){
 					var arrayDataset = []
+					localStorage.setItem("studentList", JSON.stringify(origDataSet));
 					for (var i = 0; i < origDataSet.length; i++) {
 						var icons = setIcons(i);
 						var detail = icons.detail;
@@ -30,6 +38,7 @@
 						console.log(origDataSet[i]);
 						var arr = [...origDataSet[i], detail, del, edit];
 						arrayDataset.push(arr);
+						userObject[origDataSet[i][0]] = [...origDataSet[i]];
 					}
 				 	dataSet = arrayDataset;
 				}
@@ -57,19 +66,28 @@
 					$("#txtID").val("");
 					$("#txtName").val("");
 					$("#txtGrade").val("");
+					$("#errorID").text("");
+					$("#errorName").text("");
+					$("#errorGrade").text("");
 					$("#txtDelete").val("");
 					$("#txtEdit").val("");					
 				}				
 				
 				function validate(){
+					var row = $("#txtRow").val();
 					var id = $("#txtID").val();
 					var name = $("#txtName").val();
 					var grade = $("#txtGrade").val();
 					var error = false;
 					var requiredMessage="This field is required."
+					var arr = userObject[id];
 					if(checkNull(id) ){
 						error = true;
 						$("#errorID").text(requiredMessage);
+					}
+					if(checkNull(row) && !checkNull(userObject[id]) ){
+						error = true;
+						$("#errorID").text("Duplicate. Student with Id exists.");
 					}
 					if(checkNull(name) ){
 						error = true;

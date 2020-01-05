@@ -10,25 +10,36 @@
 				var url = new URL( window.location.href);
 				var id = url.searchParams.get("id");
 				var name = url.searchParams.get("name");
-				var communityServObject = {
-					"5421": [
-								[12, "Medical", "2020-01-15"],
-								[2, "Animal", "2020-01-18"],
-							],
-					"8422": [
-								[12, "Medical", "2020-02-15"],
-								[2,  "Church", "2020-01-18"],
-							],
-					"8423": [
-								[12, "Church", "2020-03-15"],
-								[2,  "Animal", "2020-01-19"],
-							],
-				};
+				// var communityServObject = {
+				// 	"5421": [
+				// 				[12, "Medical", "2020-01-15"],
+				// 				[2, "Animal", "2020-01-18"],
+				// 			],
+				// 	"8422": [
+				// 				[12, "Medical", "2020-02-15"],
+				// 				[2,  "Church", "2020-01-18"],
+				// 			],
+				// 	"8423": [
+				// 				[12, "Church", "2020-03-15"],
+				// 				[2,  "Animal", "2020-01-19"],
+				// 			],
+				// };
+				// localStorage.setItem("communityService",   JSON.stringify(communityServObject));
+				var communityServObject = JSON.parse(localStorage.getItem("communityService"));
+				if( checkNull(communityServObject)){
+					communityServObject = {};
+				}
 				var origDataSet = communityServObject[id]; 
+				if( checkNull(origDataSet)){
+					origDataSet = [];
+					communityServObject[id] = origDataSet
+				}				
 				var dataSet = [];
 				resetDataSet();
 				function resetDataSet(){
 					var arrayDataset = []
+					communityServObject[id] = origDataSet;
+					localStorage.setItem("communityService", JSON.stringify(communityServObject));
 					for (var i = 0; i < origDataSet.length; i++) {
 						var icons = setIcons(i);
 						var detail = icons.detail;
@@ -67,6 +78,9 @@
 					$("#txtHours").val("");
 					$("#txtDate").val("");
 					$("#txtType").val("");
+					$("#errorHours").text("");
+					$("#errorDate").text("");
+					$("#errorType").text("");					
 					$("#txtDelete").val("");
 					$("#txtEdit").val("");					
 				}				
