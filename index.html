@@ -171,6 +171,19 @@
 				function getTableData(){
 					var reportDuration = $("#reportDuration").val();
 					var reportType = $("#reportType").val();
+					var reportTitle = "Report";
+					if(reportDuration === 'W'){
+						reportTitle = " Weekly " + reportTitle;
+					}else {
+						reportTitle = " Monthly " + reportTitle;
+					}
+					if(reportType === 'S'){
+						reportTitle = "Student " + reportTitle;
+					}else {
+						reportTitle = "Program " + reportTitle;
+					}						
+					$('#printTitleText').text(reportTitle);		
+
 					var tableContent = [
 							['USER ID'	, 'MONTH'	, 'HOURS'],
 							['5421'		, 'JAN'		, '10'],
@@ -220,7 +233,7 @@
 						}
 						if(reportType === 'S'){
 							key = key + "-" + nameKey;
-							tableContent = [[duration,'NAME','ID','HOURS']];							
+							tableContent = [[duration,'NAME','ID','HOURS']];		
 						}else {
 							key = key + "-" + type;
 							tableContent = [[duration,'TYPE','HOURS']];							
@@ -277,7 +290,7 @@
 					var restorepage = $('#body').html();
 					$('#body').empty();
 					$("#print").hide();
-					$('#printTitleText').text("Student Monthly Report");
+
 					
 					window.print();
 					setTimeout(function(){ 
