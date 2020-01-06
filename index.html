@@ -285,16 +285,15 @@
 
 				}
 				function printContent(el){
-					$("#printContent").show();					
 					setTableData();
-					var restorepage = $('#body').html();
-					$('#body').empty();
+					$("#printContent").show();					
+					$('#body').hide();
 					$("#print").hide();
 
 					
 					window.print();
 					setTimeout(function(){ 
-						$('#body').html(restorepage); 
+						$('#body').show();
 						$("#printContent").hide();
 						$("#print").show();
 					}, 100);
