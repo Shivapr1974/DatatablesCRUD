@@ -120,12 +120,6 @@
 					var edit =   icons.edit;
 					var del =    icons.del;				
 					var array = [$("#txtID").val(), $("#txtName").val(), $("#txtGrade").val()];
-					var printcontent = [
-							['USER ID'	, 'MONTH'	, 'HOURS'],
-							['5421'		, 'JAN'		, '10'],
-							['5421'		, 'FEB'		, '12'],
-							['8422'		, 'FEB'		, '22'],
-					];
 					if(add){
 						origDataSet.push(array);
 					}else{
@@ -177,7 +171,8 @@
 							['5421'		, 'FEB'		, '12'],
 							['8422'		, 'FEB'		, '22'],
 					];
-					table = $('#printTableBody')
+					table = $('#printTableBody');
+					table.empty();
 					table.append('<tr>');
 					header = tableContent[0];	
 					for (var j = 0; j < header.length; j++) {
@@ -188,8 +183,12 @@
 					for (var i = 1; i < tableContent.length ; i++) {
 						var row = tableContent[i];
 						table.append('<tr>');
+						var rowClass = "odd";
+						if(i % 2 == 0){
+							rowClass = "even";
+						}
 						for (var j = 0; j < row.length; j++) {
-							table.append('<td>' + row[j] + '</td>');
+							table.append('<td class="'+ rowClass + '">' + row[j] + '</td>');
 						}
 						table.append('</tr>');
 					}
@@ -200,11 +199,13 @@
 					setTableData();
 					var restorepage = $('#body').html();
 					$('#body').empty();
+					$('#printTitleText').text("Student Monthly Report");
+										
 					
 					window.print();
 					setTimeout(function(){ 
 						$('#body').html(restorepage); 
-						$("#printContent").hide();
+						// $("#printContent").hide();
 					}, 100);
 				}				
 		</script>
@@ -280,12 +281,12 @@
 			<hr/>
 		</div>			
 		<div id="printContent" class="center">
-			<div id="subtitle" > 
+			<div id="printTitle" > 
 				<hr/>
-				<div id="subtitleText" > Student Community Service Report</div>
+				<div id="printTitleText" > Student Community Service Report</div>
 				<hr/>
 			</div>
-			<table id = "printTable" >
+			<table id = "printTable" class="printTableStyle">
 				<tbody id="printTableBody">
 
 				</tbody>
