@@ -46,6 +46,7 @@
 				function setData(){
 					table = $('#example').DataTable( {
 									data: dataSet,
+									"iDisplayLength": 5,
 									columns: [
 										{ title: "Number" },
 										{ title: "Name" },
@@ -150,7 +151,7 @@
 							var id = vals[0];
 							var name = vals[1];
 							url = "detail.html?id="+id+"&name="+encodeURIComponent(name);
-							MyWindow=window.open(url,'Details','width=900,height=700');
+							MyWindow=window.open(url,'Details','width=900,height=750');
 						}
 				}
 
