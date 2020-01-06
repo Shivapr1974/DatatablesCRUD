@@ -220,34 +220,23 @@
 				<div id="print"> 
 					<table>
 						<tr>
-							<!-- <td>
-								<div id="subtitle" > 
-									<div id="subtitleText" > Reports </div>
-								</div>	
-							</td> -->
+							<td>
+								<input type="button" value="Generate Reports" id="btnPrint" onclick="printContent('printContent')"/>
+							</td>
 							<td>
 								<select id="txtDuration">
-									<option value="">Select Duration</option>
 									<option value="W">Weekly</option>
 									<option value="M">Monthly</option>
 								</select>							
 							</td> 					
 							<td>
 								<select id="txtReportType">
-									<option value="">Select Type</option>
 									<option value="S">Student</option>
 									<option value="P">Program</option>
 								</select>							
 							</td> 					
-						<!-- </tr>
-						<tr> -->
-							<td>
-								<input type="button" value="Generate Reports" id="btnPrint" onclick="printContent('printContent')"/>
-							</td>
 						</tr>
 					</table>
-					<!-- <hr/>			 -->
-
 				</div>
 					
 			<br>
@@ -292,7 +281,7 @@
 							<td><label for="txtGrade">Grade:</label></td>
 							<td>
 								<!-- <input type="text" id="txtGrade" /> -->
-								<select id="txtGrade" style="width:160px;">
+								<select id="txtGrade" >
 									<option value="">Select Grade</option>
 									<option value="A">A</option>
 									<option value="B">B</option>
