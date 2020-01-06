@@ -20,7 +20,7 @@
 				if( checkNull(origDataSet)){
 					origDataSet = [];
 				}					
-				var userObject = {};
+				var userObject = {};	
 				var dataSet = origDataSet;
 				resetDataSet();
 				$(document).ready(function() {
@@ -120,7 +120,12 @@
 					var edit =   icons.edit;
 					var del =    icons.del;				
 					var array = [$("#txtID").val(), $("#txtName").val(), $("#txtGrade").val()];
-
+					var printcontent = [
+							['USER ID'	, 'MONTH'	, 'HOURS'],
+							['5421'		, 'JAN'		, '10'],
+							['5421'		, 'FEB'		, '12'],
+							['8422'		, 'FEB'		, '22'],
+					];
 					if(add){
 						origDataSet.push(array);
 					}else{
@@ -165,11 +170,37 @@
 					'toolbar=no, location=no, directories=no, status=no, menubar=no, '+
 					'scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 				} 
+				function setTableData(){
+					var tableContent = [
+							['USER ID'	, 'MONTH'	, 'HOURS'],
+							['5421'		, 'JAN'		, '10'],
+							['5421'		, 'FEB'		, '12'],
+							['8422'		, 'FEB'		, '22'],
+					];
+					table = $('#printTableBody')
+					table.append('<tr>');
+					header = tableContent[0];	
+					for (var j = 0; j < header.length; j++) {
+						table.append('<th>' + header[j] + '</th>');
+					}
+					table.append('</tr>');
+
+					for (var i = 1; i < tableContent.length ; i++) {
+						var row = tableContent[i];
+						table.append('<tr>');
+						for (var j = 0; j < row.length; j++) {
+							table.append('<td>' + row[j] + '</td>');
+						}
+						table.append('</tr>');
+					}
+
+				}
 				function printContent(el){
 					$("#printContent").show();					
+					setTableData();
 					var restorepage = $('#body').html();
-					var printcontent = $('#' + el).clone();
 					$('#body').empty();
+					
 					window.print();
 					setTimeout(function(){ 
 						$('#body').html(restorepage); 
@@ -254,9 +285,11 @@
 				<div id="subtitleText" > Student Community Service Report</div>
 				<hr/>
 			</div>
+			<table id = "printTable" >
+				<tbody id="printTableBody">
 
-			Print me
-
+				</tbody>
+			</table>
 		</div>
 	</body>	
 </html>
