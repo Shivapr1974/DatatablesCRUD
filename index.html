@@ -70,7 +70,8 @@
 					$("#errorName").text("");
 					$("#errorGrade").text("");
 					$("#txtDelete").val("");
-					$("#txtEdit").val("");					
+					$("#txtEdit").val("");			
+					$( "#txtID" ).prop( "disabled", false );							
 				}				
 				
 				function validate(){
@@ -137,6 +138,7 @@
 							$("#txtDetails").val(vals[3]);
 							$("#txtDelete").val(vals[4]);
 							$("#txtEdit").val(vals[5]);
+							$( "#txtID" ).prop( "disabled", true );							
 						}
 						if(type === 'delete'){
 							origDataSet.splice(row, 1);
