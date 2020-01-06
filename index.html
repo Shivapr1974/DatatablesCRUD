@@ -36,7 +36,6 @@
 						var detail = icons.detail;
 						var edit =   icons.edit;
 						var del =    icons.del;
-						console.log(origDataSet[i]);
 						var arr = [...origDataSet[i], detail, del, edit];
 						arrayDataset.push(arr);
 						userObject[origDataSet[i][0]] = [...origDataSet[i]];
@@ -164,13 +163,91 @@
 					'toolbar=no, location=no, directories=no, status=no, menubar=no, '+
 					'scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 				} 
-				function setTableData(){
+				function addHours( a, b){
+					if(checkNull(a)) a  = 0;
+					if(checkNull(b)) b  = 0;
+					return a + b;
+				}	
+				function getTableData(){
+					var reportDuration = $("#reportDuration").val();
+					var reportType = $("#reportType").val();
 					var tableContent = [
 							['USER ID'	, 'MONTH'	, 'HOURS'],
 							['5421'		, 'JAN'		, '10'],
 							['5421'		, 'FEB'		, '12'],
 							['8422'		, 'FEB'		, '22'],
 					];
+					var communityServObject = JSON.parse(localStorage.getItem("communityService"));
+
+					//Normalize Values
+					var reportObjArray = [];
+					for (var key in communityServObject) {
+						var communityServArray = communityServObject[key];
+						if(communityServArray === undefined ) continue;
+						for(i=0;i<=communityServArray.length;i++){
+							var values = communityServArray[i];
+							if(values === undefined ) continue;
+						 	var arr = [key, userObject[key][1], ...values ];
+							 reportObjArray.push(arr);
+						}
+					}
+					reportObject = {};
+					var totalHours = 0;
+					for(i=0;i<reportObjArray.length;i++){
+						var id = reportObjArray[i][0];
+						var name = reportObjArray[i][1];
+						var hours = parseInt(reportObjArray[i][2] +"");
+						var type = reportObjArray[i][3];
+						var date = new Date(reportObjArray[i][4] + " 00:00:00");
+						var week = date.getWeek();
+						var month = date.toLocaleString('default', { month: 'short' });
+						var year = date.getFullYear();
+						// console.log(date + ' - ' + reportObjArray[i][4] + ' - ' + 
+						// 					year + ' - ' + 
+						// 					week + ' - ' + 
+						// 					month );
+						var monthKey = month + "/" + year;
+						var weekKey = week + "/" + year;
+						var nameKey = name  + "-" + id ;
+						var key = "";
+						var duration = "";
+						if(reportDuration === 'W'){
+							key = weekKey
+							duration = "WEEK";
+						}else {
+							key = monthKey
+							duration = "MONTH";
+						}
+						if(reportType === 'S'){
+							key = key + "-" + nameKey;
+							tableContent = [[duration,'NAME','ID','HOURS']];							
+						}else {
+							key = key + "-" + type;
+							tableContent = [[duration,'TYPE','HOURS']];							
+						}						
+						reportObject[key] = addHours( reportObject[key], hours);
+						totalHours = addHours( totalHours, hours);
+					}	
+
+					console.log(reportObject);
+					console.log("Total Hours " + totalHours);
+					
+					for (var key in reportObject) {
+						var arr = key.split("-");
+						var hours = reportObject[key];
+						arr = [...arr, hours];
+						tableContent.push(arr);
+					}	
+					if(reportType === 'S'){
+						tableContent.push(['TOTAL', '','', totalHours]);
+					}else{
+						tableContent.push(['TOTAL', '', totalHours]);
+					}	
+
+					return tableContent;
+				}	
+				function setTableData(){
+					var tableContent = getTableData();
 					table = $('#printTableBody');
 					table.empty();
 					table.append('<tr>');
@@ -224,13 +301,13 @@
 								<input type="button" value="Generate Reports" id="btnPrint" onclick="printContent('printContent')"/>
 							</td>
 							<td>
-								<select id="txtDuration">
+								<select id="reportDuration">
 									<option value="W">Weekly</option>
 									<option value="M">Monthly</option>
 								</select>							
 							</td> 					
 							<td>
-								<select id="txtReportType">
+								<select id="reportType">
 									<option value="S">Student</option>
 									<option value="P">Program</option>
 								</select>							
