@@ -200,12 +200,11 @@
 					var restorepage = $('#body').html();
 					$('#body').empty();
 					$('#printTitleText').text("Student Monthly Report");
-										
 					
 					window.print();
 					setTimeout(function(){ 
 						$('#body').html(restorepage); 
-						// $("#printContent").hide();
+						$("#printContent").hide();
 					}, 100);
 				}				
 		</script>
@@ -216,7 +215,38 @@
 			<div id="title"> 
 				<img  id="logo" src="IMAGES/student.jpg" alt="Item added" > 
 				Student Management System 
-				<div id="name"> </div>
+				<div id="name"> 
+					<table>
+						<tr>
+							<!-- <td>
+								<div id="subtitle" > 
+									<div id="subtitleText" > Reports </div>
+								</div>	
+							</td> -->
+							<td>
+								<select id="txtDuration">
+									<option value="">Select Duration</option>
+									<option value="W">Weekly</option>
+									<option value="M">Monthly</option>
+								</select>							
+							</td> 					
+							<td>
+								<select id="txtReportType">
+									<option value="">Select Type</option>
+									<option value="S">Student</option>
+									<option value="P">Program</option>
+								</select>							
+							</td> 					
+						<!-- </tr>
+						<tr> -->
+							<td>
+								<input type="button" value="Generate Reports" id="btnPrint" onclick="printContent('printContent')"/>
+							</td>
+						</tr>
+					</table>
+					<!-- <hr/>			 -->
+
+				</div>
 					
 			<br>
 			</div>
@@ -225,9 +255,11 @@
 
 		<br><br>
 		<div id="body" > 
+
 			<table id="example" class="display" width="100%">
 			</table>
-			<input type="button" value="Print" id="btnSave" onclick="printContent('printContent')"/>
+
+			
 			<div id="subtitle" > 
 				<hr/>
 				<div id="subtitleText" > Add/Edit</div>
@@ -278,7 +310,9 @@
 					</table>
 				</form>
 			</div> 
-			<hr/>
+			<hr/>	
+				
+
 		</div>			
 		<div id="printContent" class="center">
 			<div id="printTitle" > 
