@@ -16,12 +16,13 @@ div#subtitle {
     font-size: 20px;
     font-weight: bold;
 } 
-div#name {
+div#print {
 	color:#FFFFFF;
     font-size:27px;
     background-color:#036b37;
     float: right;
     vertical-align:bottom;
+    padding-top: 5px;
 }
 
 button#csv {

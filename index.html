@@ -199,12 +199,14 @@
 					setTableData();
 					var restorepage = $('#body').html();
 					$('#body').empty();
+					$("#print").hide();
 					$('#printTitleText').text("Student Monthly Report");
 					
 					window.print();
 					setTimeout(function(){ 
 						$('#body').html(restorepage); 
 						$("#printContent").hide();
+						$("#print").show();
 					}, 100);
 				}				
 		</script>
@@ -215,7 +217,7 @@
 			<div id="title"> 
 				<img  id="logo" src="IMAGES/student.jpg" alt="Item added" > 
 				Student Management System 
-				<div id="name"> 
+				<div id="print"> 
 					<table>
 						<tr>
 							<!-- <td>
