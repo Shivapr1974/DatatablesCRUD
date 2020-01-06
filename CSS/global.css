@@ -90,6 +90,8 @@ table.printTableStyle th {
     border-color: #666666;
     background-color: #036b37;
     color: white;
+    font-weight: bold;
+    font-size: 15px;
 }
 table.printTableStyle td {
     background-color: #036b37;
