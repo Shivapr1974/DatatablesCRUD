@@ -7,25 +7,36 @@
 		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
 		<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
 		<script>
-				var url = new URL( window.location.href);
-				var id = url.searchParams.get("id");
-				var name = url.searchParams.get("name");
-				// var communityServObject = {
-				// 	"5421": [
-				// 				[12, "Medical", "2020-01-15"],
-				// 				[2, "Animal", "2020-01-18"],
-				// 			],
-				// 	"8422": [
-				// 				[12, "Medical", "2020-02-15"],
-				// 				[2,  "Church", "2020-01-18"],
-				// 			],
-				// 	"8423": [
-				// 				[12, "Church", "2020-03-15"],
-				// 				[2,  "Animal", "2020-01-19"],
-				// 			],
-				// };
+				var urlStr = window.location.href;
+				// var url = new URL( urlStr);
+				// var id = url.searchParams.get("id");
+				// var name = url.searchParams.get("name");
+				var id = getQueryString("id");
+				var name = getQueryString("name");
+				var communityServObject = {
+					"5421": [
+								[12, "Medical", "2020-01-15"],
+								[2, "Animal", "2020-01-18"],
+							],
+					"8422": [
+								[12, "Medical", "2020-02-15"],
+								[2,  "Church", "2020-01-18"],
+							],
+					"8423": [
+								[12, "Church", "2020-03-15"],
+								[2,  "Animal", "2020-01-19"],
+							],
+				};
 				// localStorage.setItem("communityService",   JSON.stringify(communityServObject));
-				var communityServObject = JSON.parse(localStorage.getItem("communityService"));
+				// try{ 				
+				// 	communityServObject = JSON.parse(localStorage.getItem("communityService"));
+				// }catch(e){ 
+				// 	communityServObject = JSON.parse(getCookie("communityService")); 
+				// }
+				communityServObject = getData("communityService", {});
+				if( checkNull(origDataSet)){
+					origDataSet = [];
+				}					
 				if( checkNull(communityServObject)){
 					communityServObject = {};
 				}
@@ -39,19 +50,26 @@
 				function resetDataSet(){
 					var arrayDataset = []
 					communityServObject[id] = origDataSet;
-					localStorage.setItem("communityService", JSON.stringify(communityServObject));
+					// try{ 				
+					// 	localStorage.setItem("communityService", JSON.stringify(communityServObject));
+					// }catch(e){ 
+					// 	setCookie("communityService", JSON.stringify(communityServObject)); 
+					// }
+					setData("communityService", communityServObject)
 					for (var i = 0; i < origDataSet.length; i++) {
 						var icons = setIcons(i);
 						var detail = icons.detail;
 						var edit =   icons.edit;
 						var del =    icons.del;
 						console.log(origDataSet[i]);
-						var arr = [...origDataSet[i], del, edit];
+						var arr = JSON.parse(JSON.stringify(origDataSet[i]));
+						arr.push(del);
+						arr.push(edit);
 						arrayDataset.push(arr);
 					}
 				 	dataSet = arrayDataset;
 				}
-				function setData(){
+				function setDataSource(){
 					table = $('#example').DataTable( {
 									data: dataSet,
 									"iDisplayLength": 5,
@@ -69,11 +87,11 @@
 				$(document).ready(function() {
 					$("#id").text(id);
 					$("#name").text(name);
-					setData();
+					setDataSource();
 				} );
 				function reloadData(){
 					$('#example').DataTable().clear().destroy();					
-					setData();		
+					setDataSource();		
 				}	
 				function formClear() {
 					$("#txtRow").val("");

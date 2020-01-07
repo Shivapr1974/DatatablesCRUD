@@ -4,19 +4,25 @@
 		<script src="JS/jquery.dataTables.min.js"></script>
 		<script src="JS/global.js"></script>
 		<script src="JS/csv.js"></script>
+		<script src="JS/fileSaver.js"></script>
+
 		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
 		<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
 		<script>
 				var table = undefined;
 				// [ "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', 0)\">", "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" , "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', 0)\">" ],
 
-				// var origDataSet = [
-				// 		[ "5421", "Tiger Nixon", "A"],
-				// 		[ "8422", "Gart Winter", "B"],		
-				// 		[ "8423", "Lary Winter", "B"],		
-				// ];
+				var origDataSet = [
+						[ "5421", "Tiger Nixon", "A"],
+						[ "8422", "Gart Winter", "B"],		
+						[ "8423", "Lary Winter", "B"],		
+				];
 				// localStorage.setItem("studentList", JSON.stringify(origDataSet));
-				var origDataSet = JSON.parse(localStorage.getItem("studentList"));
+				// try{ origDataSet = JSON.parse(localStorage.getItem("studentList")); 
+				// }catch(e){ 
+				// 	origDataSet = getCookieAndParse("studentList", []); 
+				// }
+				origDataSet = getData("studentList", []);
 				if( checkNull(origDataSet)){
 					origDataSet = [];
 				}					
@@ -24,26 +30,35 @@
 				var dataSet = origDataSet;
 				resetDataSet();
 				$(document).ready(function() {
-					setData();
+					setDataSource();
 					$("#printContent").hide();
 				} );
 			
 				function resetDataSet(){
 					var arrayDataset = []
-					localStorage.setItem("studentList", JSON.stringify(origDataSet));
+					
+					// try{ localStorage.setItem("studentList", JSON.stringify(origDataSet)); 
+					// }catch(e){ 
+					// 	setCookie("studentList", JSON.stringify(origDataSet)); 
+					// }
+					setData("studentList", origDataSet);
 					for (var i = 0; i < origDataSet.length; i++) {
 						var icons = setIcons(i);
 						var detail = icons.detail;
 						var edit =   icons.edit;
 						var del =    icons.del;
-						var arr = [...origDataSet[i], detail, del, edit];
+						var arr = JSON.parse(JSON.stringify(origDataSet[i]));
+						arr.push(detail);
+						arr.push(del);
+						arr.push(edit);
+						// var arr = [...origDataSet[i], detail, del, edit];
 						arrayDataset.push(arr);
-						userObject[origDataSet[i][0]] = [...origDataSet[i]];
+						userObject[origDataSet[i][0]] = JSON.parse(JSON.stringify(origDataSet[i]));
 					}
 				 	dataSet = arrayDataset;
 				}
 
-				function setData(){
+				function setDataSource(){
 					table = $('#example').DataTable( {
 									data: dataSet,
 									"iDisplayLength": 5,
@@ -60,7 +75,7 @@
 				}	
 				function reloadData(){
 					$('#example').DataTable().clear().destroy();					
-					setData();		
+					setDataSource();		
 					$("#printContent").hide();
 				}	
 				function formClear() {
@@ -184,14 +199,27 @@
 					}						
 					$('#printTitleText').text(reportTitle);		
 
-					var tableContent = [
-							['USER ID'	, 'MONTH'	, 'HOURS'],
-							['5421'		, 'JAN'		, '10'],
-							['5421'		, 'FEB'		, '12'],
-							['8422'		, 'FEB'		, '22'],
-					];
-					var communityServObject = JSON.parse(localStorage.getItem("communityService"));
-
+					var tableContent = [ ];
+					var communityServObject = {
+					"5421": [
+								[12, "Medical", "2020-01-15"],
+								[2, "Animal", "2020-01-18"],
+							],
+					"8422": [
+								[12, "Medical", "2020-02-15"],
+								[2,  "Church", "2020-01-18"],
+							],
+					"8423": [
+								[12, "Church", "2020-03-15"],
+								[2,  "Animal", "2020-01-19"],
+							],
+					};					
+					// try{ 				
+					// 	communityServObject = JSON.parse(localStorage.getItem("communityService"));
+					// }catch(e){ 
+					// 	communityServObject = JSON.parse(getCookie("communityService")); 
+					// }
+					communityServObject = getData("communityService", {});
 					//Normalize Values
 					var reportObjArray = [];
 					for (var key in communityServObject) {
@@ -200,7 +228,9 @@
 						for(i=0;i<=communityServArray.length;i++){
 							var values = communityServArray[i];
 							if(values === undefined ) continue;
-						 	var arr = [key, userObject[key][1], ...values ];
+						 	var arr = JSON.parse(JSON.stringify(values));
+							 arr.unshift(userObject[key][1]);
+							 arr.unshift(key);
 							 reportObjArray.push(arr);
 						}
 					}
@@ -211,9 +241,10 @@
 						var name = reportObjArray[i][1];
 						var hours = parseInt(reportObjArray[i][2] +"");
 						var type = reportObjArray[i][3];
-						var date = new Date(reportObjArray[i][4] + " 00:00:00");
+						var dateArray = reportObjArray[i][4].split("-");
+						var date = new Date(dateArray[1]+"/"+dateArray[2]+"/"+dateArray[0]);
 						var week = date.getWeek();
-						var month = date.toLocaleString('default', { month: 'short' });
+						var month = date.getMonthStr();
 						var year = date.getFullYear();
 						// console.log(date + ' - ' + reportObjArray[i][4] + ' - ' + 
 						// 					year + ' - ' + 
@@ -248,7 +279,8 @@
 					for (var key in reportObject) {
 						var arr = key.split("-");
 						var hours = reportObject[key];
-						arr = [...arr, hours];
+						arr.push(hours)
+						// arr = [...arr, hours];
 						tableContent.push(arr);
 					}	
 					if(reportType === 'S'){
@@ -296,7 +328,7 @@
 						$('#body').show();
 						$("#printContent").hide();
 						$("#print").show();
-					}, 100);
+					}, 1000);
 				}				
 		</script>
 	</head>
