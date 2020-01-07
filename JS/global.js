@@ -73,6 +73,39 @@
 			return origDataSet;
 		}	
 
+		function getDate(yyyy, mm, dd){
+			var validVal = true;
+			var dt = new Date(mm+"/"+dd+"/"+yyyy);
+			if( checkNull(dt) || dt.toString() === "Invalid Date"){
+				validVal = false;
+			}	
+			if(mm>12 || dd > 31){
+				validVal = false;
+			}
+			return {valid: validVal, dateStr: yyyy + "-" + mm + "-" + dd };
+		}	
+		function validateAndgetdate(str){
+			
+			var patt1 = /(\d{4})\/(\d{2})\/(\d{2})/;
+			var array = str.match(patt1); 
+			if(array !== null && array.length===4) return getDate(array[1], array[2], array[3]  )
+
+			var patt2 = /(\d{2})\/(\d{2})\/(\d{4})/;
+			array = str.match(patt2); 
+			if(array !== null && array.length===4) return getDate(array[3], array[1], array[2]  )
+
+			var patt3 = /(\d{2})-(\d{2})-(\d{4})/;
+			array = str.match(patt3); 
+			if(array !== null && array.length===4) return getDate(array[3], array[1], array[2]  )
+
+			var patt4 = /(\d{4})-(\d{2})-(\d{2})/;;
+			array = str.match(patt4); 
+			if(array !== null && array.length===4) return getDate(array[1], array[2], array[3]  )
+
+			return {valid: false, dateStr: ""};
+		}
+
+
 
         function findAndReplace(string, target, replacement) {
         	 var i = 0, length = string.length;

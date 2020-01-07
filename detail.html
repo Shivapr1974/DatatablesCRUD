@@ -27,6 +27,7 @@
 								[2,  "Animal", "2020-01-19"],
 							],
 				};
+			
 				// localStorage.setItem("communityService",   JSON.stringify(communityServObject));
 				// try{ 				
 				// 	communityServObject = JSON.parse(localStorage.getItem("communityService"));
@@ -61,7 +62,6 @@
 						var detail = icons.detail;
 						var edit =   icons.edit;
 						var del =    icons.del;
-						console.log(origDataSet[i]);
 						var arr = JSON.parse(JSON.stringify(origDataSet[i]));
 						arr.push(del);
 						arr.push(edit);
@@ -103,8 +103,12 @@
 					$("#errorType").text("");					
 					$("#txtDelete").val("");
 					$("#txtEdit").val("");					
-				}				
+				}			
+
 				function validate(){
+					$("#errorHours").text("");
+					$("#errorDate").text("");
+					$("#errorType").text("");						
 					var hours = $("#txtHours").val();
 					var type = $("#txtType").val();
 					var dateVal = $("#txtDate").val();
@@ -113,15 +117,26 @@
 					if(checkNull(hours) ){
 						error = true;
 						$("#errorHours").text(requiredMessage);
-					}
+					} else{
+						if( hours <= 0){
+							error = true;
+							$("#errorHours").text("Hours should be greater than 0");
+						}
+					}	
 					if(checkNull(type) ){
 						error = true;
 						$("#errorType").text(requiredMessage);
 					}
+
 					if(checkNull(dateVal) ){
 						error = true;
 						$("#errorDate").text(requiredMessage);
-						
+					} else{
+						var ret = validateAndgetdate(dateVal);
+						if(!ret["valid"]){
+							error = true;
+							$("#errorDate").text("Date format has to be mm/dd/yyyy or yyyy-mm-dd");
+						}
 					}			
 					return error;							
 				}				
@@ -139,7 +154,9 @@
 					var detail = icons.detail;
 					var edit =   icons.edit;
 					var del =    icons.del;				
-					var array = [$("#txtHours").val(), $("#txtType").val(), $("#txtDate").val() ];
+					var dateVal = $("#txtDate").val();
+					var ret = validateAndgetdate(dateVal);				 
+					var array = [$("#txtHours").val(), $("#txtType").val(), ret["dateStr"] ];
 
 					if(add){
 						origDataSet.push(array);
