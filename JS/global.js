@@ -4,7 +4,7 @@
 			function setIcons(i){
 				detail = "<img class=imgdetail  src='IMAGES/details.png' onclick=\"handleClick('details', " + i +")\">";
 				edit =   "<img class=imgdetail  src='IMAGES/edit.png' onclick=\"handleClick('edit', " + i +")\">";
-				del =    "<img class=imgdetail  src='IMAGES/delete.png' onclick=\"handleClick('delete', " + i +")\">";
+				del =    "<img class=imgdetail  src='IMAGES/del.jpg' onclick=\"handleClick('delete', " + i +")\">";
 				return {
 					"detail": detail,
 					"edit": edit,
