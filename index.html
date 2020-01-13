@@ -41,7 +41,7 @@
 				// RESET Global variables dataSet, userObject
 				function resetDataSet(){
 					var arrayDataset = []
-
+					userObject = [];
 					// CALL FN TO SAVE STUDENTLIST TO LOCAL STORAGE OR COOKIES.
 					setData("studentList", origDataSet);
 					for (var i = 0; i < origDataSet.length; i++) {
@@ -196,6 +196,13 @@
 						}
 						// IF DELETE ICON CLICKED REMOVE SELECTED ROW and RESET DATA
 						if(type === 'delete'){
+							// REMOVE AWARDS ( i.e., CHILD RECORD)
+							// GET DATA communityService FROM LOCAL STORAGE or COOKIE 
+							communityServObject = getData("communityService", {});							
+							let id = origDataSet[row][0];
+							delete communityServObject[id];
+							setData("communityService", communityServObject);							
+
 							origDataSet.splice(row, 1);
 							resetDataSet();	
 							reloadData();
@@ -275,7 +282,13 @@
 							var values = communityServArray[i];
 							if(values === undefined ) continue;
 						 	var arr = JSON.parse(JSON.stringify(values));
-							 arr.unshift(userObject[key][1]);
+							 if( !checkNull(userObject[key])){
+								// User exists
+								arr.unshift(userObject[key][1]);
+							 }else{
+								// User not present.  
+								arr.unshift(""); 
+							 }
 							 arr.unshift(key);
 							 reportObjArray.push(arr);
 						}
@@ -453,11 +466,10 @@
 								<!-- <input type="text" id="txtGrade" /> -->
 								<select id="txtGrade" >
 									<option value="">Select Grade</option>
-									<option value="A">A</option>
-									<option value="B">B</option>
-									<option value="C">C</option>
-									<option value="D">D</option>
-									<option value="F">F</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
 								</select>							
 							</td> 
 							<td>
