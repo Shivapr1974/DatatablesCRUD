@@ -1,10 +1,14 @@
+table.dataTable {
+    border: 1px solid #bdbabae6;
+}
+
 div#header {
-    background-color:#036b37;
+    background-color: #05053af5;
 }
 
 img#logo {
-    width: 50px;
-    height: 35px;
+    width: 90px;
+    height: 45px;
     float: left;
 }
 div#title {
@@ -18,11 +22,11 @@ div#subtitle {
 } 
 div#print {
 	color:#FFFFFF;
-    font-size:27px;
-    background-color:#036b37;
-    float: right;
-    vertical-align:bottom;
-    padding-top: 5px;
+	font-size:27px;
+	background-color: #0d0e41;
+	float: right;
+	vertical-align:bottom;
+	padding-top: 5px;
 }
 
 button#csv {
@@ -33,7 +37,7 @@ button#csv {
 
 
 body {
-    background-color: rgba(57, 128, 0, 0.35);
+    background-color: rgba(191, 235, 236, 0.63);
 }
 
 .center {
@@ -71,8 +75,8 @@ span.error {
 
 #example th {
     text-align: left;
+    background-color: #c9eae8;
 }
-
 table.printTableStyle {
     font-family: verdana,arial,sans-serif;
     font-size: 11px;
@@ -88,7 +92,7 @@ table.printTableStyle th {
     padding: 8px;
     border-style: solid;
     border-color: #666666;
-    background-color: #036b37;
+    background-color: #05053af5;;
     color: white;
     font-weight: bold;
     font-size: 15px;
@@ -107,10 +111,10 @@ table.printTableStyle td {
     text-align: center;
 }
 table.printTableStyle td.odd {
-    background-color: #ddecc1;
+    background-color: #c2ebe8;
 }
 table.printTableStyle td.even {
-    background-color: #e3f2c6;
+    background-color: #d6f2f3;;
 }
 div#printTitle {
     font-size: 20px;
