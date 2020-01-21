@@ -18,6 +18,15 @@
     background-color: white; 
     color: black;
 }
+.buttonprint {
+    background-color: lightblue; 
+    color: black;
+    padding-top: 2px;
+    padding-bottom: 2px;    
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 8px 16px 0 rgba(173, 216, 230, 0.2), 0 6px 20px 0 rgba(173, 216, 230, 0.2);
+}
 .button:hover {
     background-color: #4c6a73;
     color: white;
@@ -117,7 +126,7 @@ table.printTableStyle th {
     padding: 8px;
     border-style: solid;
     border-color: #666666;
-    background-color: #05053af5;;
+    background-color: #053861;
     color: white;
     font-weight: bold;
     font-size: 15px;
@@ -136,10 +145,10 @@ table.printTableStyle td {
     text-align: center;
 }
 table.printTableStyle td.odd {
-    background-color: #c2ebe8;
+    background-color: #a3ccd9;
 }
 table.printTableStyle td.even {
-    background-color: #d6f2f3;;
+    background-color: #add8e6;
 }
 div#printTitle {
     font-size: 20px;
