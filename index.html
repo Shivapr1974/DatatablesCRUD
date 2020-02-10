@@ -5,6 +5,7 @@
 		<script src="JS/global.js"></script>
 		<script src="JS/csv.js"></script>
 		<script src="JS/fileSaver.js"></script>
+		<script src="JS/defaultValues.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
 		<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
@@ -22,11 +23,13 @@
 
 				// GET STUDENT LIST FROM LOCALSTORAGE or FROM COOKIES
 				origDataSet = getData("studentList", []);
-
 				// IF DATA IS EMPTY INITIALIZE IT.
-				if( checkNull(origDataSet)){
-					origDataSet = [];
-				}					
+				if( checkNull(origDataSet) || origDataSet.length === 0){
+					origDataSet = studentListDefault;
+					setData("studentList", studentListDefault);
+					setData("communityService", communityServiceDefault);
+				}	
+
 				var userObject = {};	
 				var dataSet = origDataSet;
 				// CALL FN TO FORMAT STUDENTLIST TO WORK WITH DATATABLES.
